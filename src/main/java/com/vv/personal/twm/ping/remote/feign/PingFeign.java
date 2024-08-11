@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @since 07/12/20
  */
 public interface PingFeign {
-    @GetMapping("/health/ping")
+    @GetMapping("/ping")
     String ping();
 }

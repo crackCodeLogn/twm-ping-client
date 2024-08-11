@@ -32,11 +32,13 @@ public class Pinger {
         while (++retry <= pingRetryCount) {
             LOGGER.info("Attempting allEndPointsActive test sequence: {}", retry);
             AtomicBoolean allPingsPass = new AtomicBoolean(true);
-            for (PingFeign pingFeign : pingFeigns)
+            for (PingFeign pingFeign : pingFeigns) {
+                LOGGER.info("Checking for ping feign: {}", pingFeign);
                 if (!pingResult(createPingTask(pingFeign))) {
                     allPingsPass.set(false);
                     break;
                 }
+            }
             if (allPingsPass.get()) return true;
             try {
                 Thread.sleep(pingRetryTimeoutSeconds * 1000L);
